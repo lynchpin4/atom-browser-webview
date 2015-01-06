@@ -10,6 +10,7 @@
     "atom": ">0.120.0"
   },
   "dependencies": {
+    "underscore-plus": "1.x",
     "emissary": "^1.3.1"
   }
 }
