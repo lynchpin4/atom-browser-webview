@@ -1,4 +1,4 @@
-# web-browser package
+# atom-browser-webview package
 
 A web browser that runs seamlessly in the Atom editor
 
