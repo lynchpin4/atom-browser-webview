@@ -4,6 +4,7 @@
 {Emitter} = require 'emissary'
 PageView  = require './page-view'
 urlUtil   = require 'url'
+{$, View}  = require 'atom'
 
 module.exports =
 class Page

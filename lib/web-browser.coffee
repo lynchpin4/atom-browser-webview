@@ -3,6 +3,7 @@
 
 Toolbar = require './toolbar'
 Page    = require './page'
+{$, View}  = require 'atom'
 
 class WebBrowser
   activate: ->

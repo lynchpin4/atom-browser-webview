@@ -2,6 +2,7 @@
 # lib/omnibox-view
         
 {View}  = require 'atom'
+{$, View}  = require 'atom'
 
 module.exports =
 class OmniboxView extends View
