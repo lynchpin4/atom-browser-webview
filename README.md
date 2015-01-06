@@ -16,7 +16,7 @@ The package `command-toolbar` now supports buttons to save webpages and open the
 
 ## Usage
   
-- Install with `apm install web-browser`
+- Install with `apm install atom-browser-webview` (Or you may have to install from git: 
 - Press `ctrl-alt-B` (`web-browser:toggle`) and a toolbar will appear above the tabs
 - Enter a url and press enter
 - To later create a new tab use ctrl-enter instead
@@ -24,36 +24,7 @@ The package `command-toolbar` now supports buttons to save webpages and open the
 - Press `ctrl-alt-B` again to close toolbar
 - Click on globe in toolbar to close the toolbar (secret feature)
 
-## API
 
-The API is not documented yet but the code in `lib/web-browser.coffee` contains all methods needed.  The `webBrowser` object is available as `atom.webBrowser` globally.  To open a page use `createPage`.  For example, to open the apple.com web page use `atom.webBrowser.createPage 'http://apple.com'`.
-
-## Known Problems
-
-- Missing features that will be added soon
-  - Bookmarks
-  - Recently visited sites
-  - Options
-  
-  
-- Missing features that may be added
-  - Uploads and Downloads
-  
-  
-- Features that will probably not be added
-  - Plugins like Flash and Silverlight
-  - Chrome Extensions (this isn't chrome (grin))
-  
-  
-- Other
-  - Tab keypresses are stolen from editor tabs
-    - Close web browser toolbar to work around
-  - Ctrl-click is ignored
-  - Back/forward buttons reload pages
-  - Same-origin problems from iFrame
-    - Most of these have been fixed including the crashes
-  
-  
 ## License
 
-Copyright Mark Hahn by MIT license
+Copyright Mark Hahn / gstack by MIT license
