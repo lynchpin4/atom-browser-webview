@@ -1,0 +1,15 @@
+{
+  "name": "web-browser",
+  "main": "./lib/web-browser",
+  "version": "0.2.5",
+  "description": "A multi-tabbed full-featured web view / nativator for Atom. (DEV)",
+  "activationEvents": [],
+  "repository": "https://github.com/gstack/web-browser",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.120.0"
+  },
+  "dependencies": {
+    "emissary": "^1.3.1"
+  }
+}
