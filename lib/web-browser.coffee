@@ -8,9 +8,8 @@ Page    = require './page'
 class WebBrowser
   activate: ->
     atom.webBrowser = @
-    atom.menu.add [
-      { label: 'Packages', submenu: [{ label: 'Browser', submenu: [ { label: 'Toggle Browser UI', command: 'web-browser:toggle' }  ] }]}
-    ]
+
+    # toggle the webbrowser dropdown U
     atom.workspaceView.command "web-browser:toggle", =>
       @toolbar ?= new Toolbar @
       switch
@@ -21,15 +20,15 @@ class WebBrowser
         else
           @toolbar.hide()
 
+    # add a callback to simply check for which pane is active, if it is our browser tab then do the manual show/hide
     atom.workspace.onDidChangeActivePaneItem =>
-      #if @getActivePage() then @page.update()
-      #else if @page then @page.locationChanged @page.getPath()
       page = @getActivePage()
       if page
         @page.goVisible()
       else
         if @page then @page.goInvisible()
 
+    # add a callback for handling http
     @opener = (filePath, options) =>
       if /^https?:\/\//.test filePath
         new Page @, filePath
@@ -55,6 +54,7 @@ class WebBrowser
     if @getActivePage()?.setLocation url
     else @createPage url
 
+  # if the current page is a browser
   getActivePage: ->
     page = atom.workspace.getActivePaneItem()
     if page instanceof Page then @page = page; return @page
@@ -63,7 +63,8 @@ class WebBrowser
   forward: -> @getActivePage()?.goForward()
   refresh: -> @getActivePage()?.reload()
 
+  # module deactivation
   deactivate: ->
-    #atom.workspace.unregisterOpener @opener
+    atom.workspace.unregisterOpener @opener
 
 module.exports = new WebBrowser

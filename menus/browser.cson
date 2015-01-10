@@ -1,0 +1,11 @@
+'menu': [
+  {
+    'label': 'Browser'
+    'submenu': [
+      {
+        'label': 'Show / Hide Browser UI'
+        'command': 'web-browser:toggle'
+      }
+    ]
+  }
+]
