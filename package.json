@@ -4,7 +4,7 @@
   "version": "0.4.4",
   "description": "A multi-tabbed full-featured web view / nativator for Atom. (INDEV/TEST)",
   "activationEvents": [],
-  "repository": "https://github.com/gstack/atom-browser-webview",
+  "repository": "https://github.com/coalition-of-code/atom-browser-webview",
   "license": "MIT",
   "engines": {
     "atom": ">0.150.0"
