@@ -2,7 +2,7 @@
   "name": "atom-browser-webview",
   "main": "./lib/web-browser",
   "version": "0.4.6",
-  "description": "A multitabbed full-featured web browser for Atom. Adds working HTML5 tabs.",
+  "description": "Only working web browser for Atom. Tabbed, full-featured HTML5 webviews in your IDE.",
   "activationEvents": [],
   "repository": "https://github.com/gstack/atom-browser-webview",
   "license": "MIT",

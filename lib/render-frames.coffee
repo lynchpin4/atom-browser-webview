@@ -23,7 +23,7 @@ class WebRenderFrames
       return webview
 
     # create the new web view
-    webview = $ """<webview plugins="on" allowfullscreen="on" autosize="on" />"""
+    webview = $ """<webview plugins="on" allowfullscreen="on" autosize="on" class="native-key-bindings" />"""
     webview.id = _.uniqueId("embed_webview_");
 
     # give it a 'sticky holder' (floating/fixed div that holds the webview)

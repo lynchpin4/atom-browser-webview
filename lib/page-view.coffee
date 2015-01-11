@@ -38,13 +38,15 @@ class PageView extends View
     if not @webview or not @webview[0]
       return ''
     webview = @webview[0]
-    if webview.getTitle()
+    if webview.getTitle
       return webview.getTitle()
 
   getUrl: ->
     if not @webview or not @webview[0]
       return ''
-    return @getWebview().getUrl()
+    webview = @webview[0]
+    if webview.getUrl
+      return @getWebview().getUrl()
 
   setLocation: (url) ->
     if @webview
