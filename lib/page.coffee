@@ -24,7 +24,7 @@ class Page
   back:    -> @pageView.goBack()
   forward: -> @pageView.goForward()
   refresh: -> @pageView.reload()
-  
+
   goVisible: ->
     if @pageView then @pageView.goVisible()
   goInvisible: ->
@@ -35,7 +35,7 @@ class Page
 
   locationChanged: (@url) ->
     @update()
-  
+
   # called from the page view
   createTab: ->
     tabBarView  = atom.workspaceView.find('.pane.active').find('.tab-bar').view()
@@ -55,7 +55,7 @@ class Page
     if @pageView and @pageView.getTitle
       @setTitle @getTitle()
     # @pageView?.setLocation(@url)
-    
+
   setFaviconDomain: (domain) ->
     @$tabFavicon.attr src: "http://www.google.com/s2/favicons?domain=#{domain}"
 
@@ -65,16 +65,25 @@ class Page
   getViewClass: -> PageView
   getView:      -> @pageView
   getPath:      -> @url
-  
+
+  goForward: ->
+    @pageView?.goForward()
+
+  goBack: ->
+    @pageView?.goBack()
+
+  reload: ->
+    @pageView?.reload()
+
   detach: ->
     console.log 'detaching tab page'
-    
+
   destroy: ->
     @pageView.destroy()
     tabBarView  = atom.workspaceView.find('.pane.active').find('.tab-bar').view()
     tabView     = tabBarView.tabForItem @
     $tabView    = $ tabView
     $tabView.remove()
-    
+
     @pageView = null
     $tabView = null

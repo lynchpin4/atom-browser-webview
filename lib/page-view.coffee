@@ -18,9 +18,6 @@ class PageView extends View
     browser     = page.getBrowser()
     omniboxView = browser.getOmniboxView()
     @page = page
-    
-    #debug
-    # @subscribe @, 'click', (e) => console.log 'PageView click', e.ctrlKey
 
     @webview = atom.webRenderFrames.createFrame @
     page.webview = @webview
@@ -37,10 +34,11 @@ class PageView extends View
       @localPage.setTitle title
 
   getTitle: ->
-    if not @webview or not @webview.getTitle
+    if not @webview or not @webview[0]
       return ''
-    if @webview.getTitle()
-      return @webview.getTitle()
+    webview = @webview[0]
+    if webview.getTitle()
+      return webview.getTitle()
 
   getUrl: ->
     return @webview[0].src || @webview.attr 'src' || 'about:blank'
@@ -56,12 +54,12 @@ class PageView extends View
   goForward: ->
     if @webview
       @webview.goForward()
-      
+
   goVisible: ->
     @css('visibility', 'visible')
     $(@webview).css('visibility', 'visible')
     $(@webview).parent().removeClass 'holder-hidden'
-      
+
   goInvisible: ->
     @css('visibility', 'hidden')
     $(@webview).parent().addClass 'holder-hidden'
@@ -77,5 +75,3 @@ class PageView extends View
     console.log 'destroyed webview'
     $(@webview).parent().remove()
     #$(@webview).remove()
-    
-    

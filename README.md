@@ -10,14 +10,18 @@ The browser is quite useful for testing a web page inside the same programming e
 
 The browser has a simple API for other Atom packages to use.  @kgrossjo on the Atom discussion board suggested a package that allows clicking on a word in source code and showing the web page documention for the word.
 
-### News (2015-06-01)
+### News (2015-11-01)
+
+Fixed all known issues, this is no longer in DEVELOPMENT stage. Please report any bugs via issues section.
+
+---
 
 Finally a working tabbed browser that's using webviews. The easiest way to get going is to toggle the UI in Packages -> Browser, or make atom.workspace.open('http://google.com/'); calls after launching.
 
 This extension is designed to support multiple active tabs using visibility: css to work-around the deallocating webviews with display: none;
 
 ## Usage
-  
+
 - Install with `apm install atom-browser-webview`
 - Press `ctrl-alt-B` (`web-browser:toggle`) and a toolbar will appear above the tabs
 - Enter a url and press enter
@@ -26,10 +30,12 @@ This extension is designed to support multiple active tabs using visibility: css
 - Press `ctrl-alt-B` again to close toolbar
 - Click on globe in toolbar to close the toolbar (secret feature)
 
-## Gif
+## Screenshots / Attributions
 
 ![GIF](https://github.com/mark-hahn/web-browser/blob/master/screenshots/browser.gif?raw=true)
 
+Original: https://github.com/mark-hahn/web-browser
+
 ## License
 
-Copyright Gstack / Mark Han by MIT license
+Copyright Graham S / Mark Hahn by MIT license

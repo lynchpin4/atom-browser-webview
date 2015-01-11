@@ -8,8 +8,9 @@ Page    = require './page'
 class WebBrowser
   activate: ->
     atom.webBrowser = @
+    @pages = []
 
-    # toggle the webbrowser dropdown U
+    # toggle the webbrowser dropdown UI
     atom.workspaceView.command "web-browser:toggle", =>
       @toolbar ?= new Toolbar @
       switch
@@ -24,11 +25,14 @@ class WebBrowser
     atom.workspace.onDidChangeActivePaneItem =>
       page = @getActivePage()
       if page
+        if @lastPage and @lastPage != @page then @lastPage.goInvisible()
         @page.goVisible()
+        @lastPage = page
       else
-        if @page then @page.goInvisible()
+        for page in @pages
+          page.goInvisible()
 
-    # add a callback for handling http
+    # add a callback for handling http inside the editor
     @opener = (filePath, options) =>
       if /^https?:\/\//.test filePath
         new Page @, filePath
@@ -46,7 +50,10 @@ class WebBrowser
 
   createPage: (url) ->
     @toolbar ?= new Toolbar @
-    atom.workspace.activePane.activateItem new Page @, url
+    page = new Page @, url
+    atom.workspace.activePane.activateItem page
+    @lastPage = page
+    @pages.push page
 
   setLocation: (url) ->
     @toolbar ?= new Toolbar @
