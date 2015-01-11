@@ -34,7 +34,7 @@ This extension is designed to support multiple active tabs using visibility: css
 
 ## Screenshots / Attributions
 
-![GIF](https://github.com/coalition-of-code/atom-browser-webview/blob/master/screenshots/browser.gif?raw=true)
+![PNG](https://github.com/gstack/atom-browser-webview/blob/master/screenshots/screenshot.png?raw=true)
 
 Originally Created by Mark Hahn (https://github.com/mark-hahn/web-browser)
 

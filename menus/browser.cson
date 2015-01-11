@@ -1,5 +1,14 @@
 'menu': [
   {
+    'label': 'File',
+    'submenu': [
+      {
+        'label': 'New Tab (Browser)',
+        'command': 'web-browser:newtab'
+      }
+    ]
+  },
+  {
     'label': 'Browser'
     'submenu': [
       {
