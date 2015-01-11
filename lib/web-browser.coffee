@@ -4,10 +4,20 @@
 Toolbar = require './toolbar'
 Page    = require './page'
 {$, View}  = require 'atom'
+
 # render frame helper
 require './render-frames'
 
 class WebBrowser
+
+  config:
+    homepage:
+      type: 'string'
+      default: "http://github.com/"
+    autoReloadCache:
+      type: 'boolean'
+      default: false
+
   activate: ->
     atom.webBrowser = @
     @pages = []
@@ -27,7 +37,10 @@ class WebBrowser
 
     atom.workspaceView.command "web-browser:newtab", =>
       # temp: todo - user configurable homepage
-      atom.workspace.open('http://github.com/')
+      atom.workspace.open atom.config.get('atom-browser-webview.homepage')
+
+    atom.workspaceView.command "web-browser:newtab-showui", =>
+      @newTabShowUI()
 
     atom.workspaceView.command "web-browser:devtools", =>
       # temp: todo - user configurable homepage
@@ -68,6 +81,9 @@ class WebBrowser
       else
         @hideAll()
 
+    # add the file menu 'New Tab (Browser)'
+    @addFileMenuItem()
+
     # add a callback for handling http inside the editor
     @opener = (filePath, options) =>
       if /^https?:\/\//.test filePath
@@ -81,6 +97,19 @@ class WebBrowser
   getOmniboxView:            -> @toolbar?.getOmniboxView()
   setOmniText:        (text) -> @toolbar?.setOmniText text
   setFaviconDomain: (domain) -> @toolbar?.setFaviconDomain domain
+
+  # add a 'new browser tab' item to the current file menu
+  addFileMenuItem: ->
+    menu = atom.menu.template[0]
+    menu.submenu.splice 2, 0, { label: 'New Tab (Browser)', command: 'web-browser:newtab-showui' }
+    atom.menu.template[0] = menu
+    console.dir menu
+    atom.menu.update()
+
+  newTabShowUI: ->
+    @toolbar ?= new Toolbar @
+    @toolbar.show().focus()
+    atom.workspace.open atom.config.get('atom-browser-webview.homepage')
 
   hideAll: ->
     for page in @pages
@@ -120,9 +149,26 @@ class WebBrowser
     else
       false
 
-  back:    -> @getActivePage()?.goBack()
-  forward: -> @getActivePage()?.goForward()
-  refresh: -> @getActivePage()?.reload()
+  # Toolbar / Omnibox / API Commands
+
+  back: ->
+    webview = atom.webBrowser.getActivePage()?.getWebview()
+    if not webview then return
+
+    @getActivePage()?.goBack()
+  forward: ->
+    webview = atom.webBrowser.getActivePage()?.getWebview()
+    if not webview then return
+
+    @getActivePage()?.goForward()
+  refresh: ->
+    webview = atom.webBrowser.getActivePage()?.getWebview()
+    if not webview then return
+
+    if atom.config.get('atom-browser-webview.autoReloadCache')
+      webview.reloadIgnoringCache()
+    else
+      @getActivePage()?.reload()
 
   # module deactivation
   deactivate: ->

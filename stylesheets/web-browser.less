@@ -9,119 +9,133 @@
   height: 16px;
 }
 
+/* for dark stylesheets.. */
+img.favicon
+{
+  -webkit-filter: grayscale(100%) contrast(150%);
+}
+
 .workspace .browser-toolbar {
   display:    flex;
   position:   relative;
   height:     34px;
   font-size:  14px;
-  background-image: -webkit-linear-gradient(top, @app-background-color,
-                                                    @tab-bar-background-color);
-  box-shadow: inset 0 -8px 8px -4px rgba(0, 0, 0, 0.15);
+  background-image: -webkit-linear-gradient(top, @app-background-color, @tab-bar-background-color);
+  box-shadow: inset 0 -8px 8px -4px rgba(0, 0, 0, 0.25);
 
-  .nav-btns{
-    display: inline-block;
-    position: relative;
-    margin-top: 0.2em;
-    height: 1.1em;
-    line-height: 1.3em;
-    line-height: 0.9;
-
-    .octicon {
-      font-family: 'Octicons Regular';
-      font-size: 1.7em;
-      font-weight: normal;
-      font-style: normal;
-      font-variant: normal;
-      text-transform: none;
-      -webkit-font-smoothing: antialiased;
-      text-decoration: none;
+    .nav-btns{
       display: inline-block;
-      padding-left:  .2em;
-      padding-right: .2em;
-      color: @text-color;
-      opacity:       .8;
-      margin-left: 0.1em;
-      border:1px solid transparent;
-      border-radius: 0.2em;
-    }
-    .octicon.browser-btn:hover {
-      border: 1px solid @button-border-color;
-      background-color: @button-background-color-hover;
-    }
-    .octicon.octicon-globe       {&:before{content: @globe}; color:#44f}
-    .octicon.octicon-arrow-left  {&:before{content: @arrow-left}}
-    .octicon.octicon-arrow-right {&:before{content: @arrow-right}}
-    .octicon.octicon-sync        {&:before{content: @sync}}
-    .octicon.octicon-three-bars  {&:before{content: @three-bars}}
-  }
-  .nav-btns.left {
-    order: 1;
-  }
-
-  .favicon {
-    position: absolute;
-    left:   9.85em;
-    top:    .55em;
-    width:  16px;
-    height: 16px;
-    z-index: 1;
-  }
-
-  .omnibox-container {
-    flex: 1;
-    order: 3;
-
-    .omnibox {
       position: relative;
-      margin-left: .4em;
-      margin-right: .4em;
+      margin-top: 0.15em;
+      height: 1.1em;
+      line-height: 1.8em;
 
-      input {
-        position:   relative;
-        top:            .3em;
-        height:        1.7em;
-        width:          100%;
-        padding-left:  1.6em;
-        padding-right: 0.2em;
-        font-size:      14px;
-        box-shadow:     none;
-        border:        1px solid @input-border-color;
-        color:          @text-color;
-        background-color: transparent;
+      .octicon {
+        font-family: 'Octicons Regular';
+        font-size: 1.7em;
+        font-weight: normal;
+        font-style: normal;
+        font-variant: normal;
+        text-transform: none;
+        -webkit-font-smoothing: antialiased;
+        text-decoration: none;
+        display: inline-block;
+        padding-left:  .2em;
+        padding-right: .2em;
+        color: darken(@text-color-highlight, 5%);
+        margin-left: 0.1em;
+        border:1px solid transparent;
+        border-radius: 0.2em;
       }
-      input::selection {
-        background-color: @background-color-selected;
+      .octicon.browser-btn:hover {
+        border: 1px solid @button-border-color;
+        background-color: @button-background-color-hover;
+        color: @text-color-highlight;
       }
-      input:focus {
-        background-color: @input-background-color;
+      .octicon-close
+      {
+        margin-right: 5px;
+        line-height: 19px;
+      }
+      .octicon-sync
+      {
+        position: relative;
+        top: -1px;
+      }
+      .octicon.octicon-close      {&:before{content: @move-up; font-size: 14px; } color:#fff; }
+      .octicon.octicon-arrow-left  {&:before{content: @arrow-left}}
+      .octicon.octicon-arrow-right {&:before{content: @arrow-right}}
+      .octicon.octicon-sync        {&:before{content: @sync; font-size: 21px;}}
+      .octicon.octicon-three-bars  {&:before{content: @three-bars}}
+    }
+    .nav-btns.left {
+      order: 1;
+    }
+
+    .favicon {
+      position: absolute;
+      left:   0.5em;
+      top:    .55em;
+      width:  16px;
+      height: 16px;
+      z-index: 1;
+    }
+
+    .omnibox-container {
+      flex: 1;
+      order: 3;
+
+      .omnibox {
+        position: relative;
+        margin-left: .4em;
+        margin-right: .4em;
+
+        input {
+          position:   relative;
+          top:            .3em;
+          height:        1.7em;
+          width:          100%;
+          padding-left:  1.6em;
+          padding-right: 0.2em;
+          font-size:      14px;
+          box-shadow:     none;
+          border:        1px solid @input-border-color;
+          color:          @text-color;
+          background-color: transparent;
+        }
+        input::selection {
+          background-color: @background-color-selected;
+        }
+        input:focus {
+          background-color: @input-background-color;
+        }
       }
     }
+    .nav-btns.right {
+      order: 4;
+    }
   }
-  .nav-btns.right {
-    order: 4;
-  }
-}
 
-.workspace .browser-page {
-  .iframe {
-    width:  100%;
-    height: 100%;
-    border: none;
-    margin: 5px;
+  .workspace .browser-page {
+    .iframe {
+      width:  100%;
+      height: 100%;
+      border: none;
+      margin: 5px;
+    }
+    .webview, webview {
+      width:  100%;
+      height: 100%;
+      border: none;
+      margin: 5px;
+      margin-top: 34px;
+    }
   }
-  .webview, webview {
-    width:  100%;
-    height: 100%;
-    border: none;
-    margin: 5px;
-    margin-top: 34px;
-  }
-}
 
-.holder-hidden {
-  top: -9999px;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  visibility: hidden;
-}
+  .holder-hidden {
+    top: -9999px;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    visibility: hidden;
+  }

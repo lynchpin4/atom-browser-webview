@@ -6,10 +6,6 @@ A web browser that runs seamlessly in the Atom editor
 
 This is a web browser tightly integrated into the Atom editor.  The web pages appear in the normal editor tabs.  The pages are fully functional with scripting and linking. A browser toolbar appears at the top of the Atom window to allow simple webpage navigation.
 
-The browser is quite useful for testing a web page inside the same programming editor being used for development.  Splitting panes allow code to be seen next to the web page.
-
-The browser has a simple API for other Atom packages to use. @kgrossjo on the Atom discussion board suggested a package that allows clicking on a word in source code and showing the web page documention for the word.
-
 * Is an actual web browser, no use of iframes so every site should load as it would in Chrome or Firefox. (Some individual web features i.e. popups may not be supported) *
 
 ### News (2015-11-01)
