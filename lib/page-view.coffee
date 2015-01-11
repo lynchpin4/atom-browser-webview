@@ -46,6 +46,9 @@ class PageView extends View
     if @webview
       @webview.attr src: url
 
+  getWebview: ->
+    return @webview[0]
+
   goBack: ->
     if @webview
       @webview.goBack()

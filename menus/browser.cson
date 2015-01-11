@@ -9,6 +9,30 @@
       {
         'label': 'Open New Tab',
         'command': 'web-browser:newtab'
+      },
+      {
+        'label': 'Show Devtools',
+        'command': 'web-browser:devtools'
+      },
+      {
+        'label': 'Stop',
+        'command': 'web-browser:stop-loading'
+      },
+      {
+        'label': 'Reload',
+        'command': 'web-browser:reload'
+      },
+      {
+        'label': 'Reload (No Cache)',
+        'command': 'web-browser:reload-nocache'
+      },
+      {
+        'label': 'Back',
+        'command': 'web-browser:go-back'
+      }
+      {
+        'label': 'Forward',
+        'command': 'web-browser:go-forward'
       }
     ]
   }

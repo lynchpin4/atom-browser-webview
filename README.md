@@ -1,6 +1,6 @@
 # atom-browser-webview package
 
-A web browser that runs seamlessly in the Atom editor
+A web browser that runs seamlessly in the Atom editor (version: 0.4.1)
 
 ## Info
 
@@ -8,7 +8,7 @@ This is a web browser tightly integrated into the Atom editor.  The web pages ap
 
 The browser is quite useful for testing a web page inside the same programming editor being used for development.  Splitting panes allow code to be seen next to the web page.
 
-The browser has a simple API for other Atom packages to use.  @kgrossjo on the Atom discussion board suggested a package that allows clicking on a word in source code and showing the web page documention for the word.
+The browser has a simple API for other Atom packages to use. @kgrossjo on the Atom discussion board suggested a package that allows clicking on a word in source code and showing the web page documention for the word.
 
 ### News (2015-11-01)
 
@@ -32,7 +32,7 @@ This extension is designed to support multiple active tabs using visibility: css
 
 ## Screenshots / Attributions
 
-![GIF](https://github.com/coalition-of-code/web-browser/blob/master/screenshots/browser.gif?raw=true)
+![GIF](https://github.com/coalition-of-code/atom-browser-webview/blob/master/screenshots/browser.gif?raw=true)
 
 Originally Created by Mark Hahn (https://github.com/mark-hahn/web-browser)
 

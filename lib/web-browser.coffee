@@ -29,6 +29,36 @@ class WebBrowser
       # temp: todo - user configurable homepage
       atom.workspace.open('http://github.com/')
 
+    atom.workspaceView.command "web-browser:devtools", =>
+      # temp: todo - user configurable homepage
+      webview = atom.webBrowser.getActivePage()?.getWebview()
+      webview?.openDevTools()
+
+    atom.workspaceView.command "web-browser:stop-loading", =>
+      # temp: todo - user configurable homepage
+      webview = atom.webBrowser.getActivePage()?.getWebview()
+      webview?.stop()
+
+    atom.workspaceView.command "web-browser:reload", =>
+      # temp: todo - user configurable homepage
+      webview = atom.webBrowser.getActivePage()?.getWebview()
+      webview?.reload()
+
+    atom.workspaceView.command "web-browser:reload-nocache", =>
+      # temp: todo - user configurable homepage
+      webview = atom.webBrowser.getActivePage()?.getWebview()
+      webview?.reloadIgnoringCache()
+
+    atom.workspaceView.command "web-browser:go-back", =>
+      # temp: todo - user configurable homepage
+      webview = atom.webBrowser.getActivePage()?.getWebview()
+      webview?.goBack()
+
+    atom.workspaceView.command "web-browser:go-forward", =>
+      # temp: todo - user configurable homepage
+      webview = atom.webBrowser.getActivePage()?.getWebview()
+      webview?.goForward()
+
     # add a callback to simply check for which pane is active, if it is our browser tab then do the manual show/hide
     atom.workspace.onDidChangeActivePaneItem =>
       p = @getActivePage()

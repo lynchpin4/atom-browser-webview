@@ -66,6 +66,9 @@ class Page
   getView:      -> @pageView
   getPath:      -> @url
 
+  getWebview: ->
+    @pageView?.getWebview()
+
   goForward: ->
     @pageView?.goForward()
 
