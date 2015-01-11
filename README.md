@@ -12,11 +12,11 @@ The browser has a simple API for other Atom packages to use.  @kgrossjo on the A
 
 ### News (2015-11-01)
 
-Fixed all known issues, this is no longer in DEVELOPMENT stage. Please report any bugs via issues section.
+Fixed any known issues, this is no longer in testing/dev-only stage. Please report any bugs you encounter via issues section.
 
 ---
 
-Finally a working tabbed browser that's using webviews. The easiest way to get going is to toggle the UI in Packages -> Browser, or make atom.workspace.open('http://google.com/'); calls after launching.
+Finally a working tabbed browser, using webviews. (No iframes) The easiest way to get going is to toggle the UI in Browser -> Show / Hide Browser UI, or make atom.workspace.open('http://google.com/'); calls after launching.
 
 This extension is designed to support multiple active tabs using visibility: css to work-around the deallocating webviews with display: none;
 
@@ -32,9 +32,9 @@ This extension is designed to support multiple active tabs using visibility: css
 
 ## Screenshots / Attributions
 
-![GIF](https://github.com/mark-hahn/web-browser/blob/master/screenshots/browser.gif?raw=true)
+![GIF](https://github.com/coalition-of-code/web-browser/blob/master/screenshots/browser.gif?raw=true)
 
-Original: https://github.com/mark-hahn/web-browser
+Originally Created by Mark Hahn (https://github.com/mark-hahn/web-browser)
 
 ## License
 

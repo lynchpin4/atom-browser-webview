@@ -5,6 +5,10 @@
       {
         'label': 'Show / Hide Browser UI'
         'command': 'web-browser:toggle'
+      },
+      {
+        'label': 'Open New Tab',
+        'command': 'web-browser:newtab'
       }
     ]
   }

@@ -2,7 +2,6 @@
 # lib/page-view
 
 {$, View} = require 'atom'
-require './render-frames'
 
 module.exports =
 class PageView extends View
@@ -74,4 +73,3 @@ class PageView extends View
     clearInterval @urlInterval
     console.log 'destroyed webview'
     $(@webview).parent().remove()
-    #$(@webview).remove()
