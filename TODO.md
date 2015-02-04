@@ -11,3 +11,5 @@
 2. add new tab in file menu (done)
 
 3. fix for active / focused panes (dont hide tabs as long as their pane is VISIBLE not just active.. when panes are split)
+
+4. execute buffer in browser (scripting)

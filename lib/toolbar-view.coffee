@@ -9,7 +9,6 @@ class ToolbarView extends View
 
   @content: ->
     @div class:'browser-toolbar', tabindex:-1, =>
-
       @div outlet: 'navBtnsLft', class:'nav-btns left', =>
         @span outlet:'goLeft', class:'octicon browser-btn octicon-arrow-left'
         @span outlet:'goRight', class:'octicon browser-btn octicon-arrow-right'

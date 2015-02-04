@@ -117,9 +117,9 @@ class WebBrowser
 
   fixPages: ->
     if @pages.length == 0 then return
-    if not @getActivePage()
-      @hideAll()
-      return
+    #if not @getActivePage()
+    #  @hideAll()
+    #  return
     atom.webRenderFrames.repositionFrames()
 
   destroyToolbar: ->

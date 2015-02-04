@@ -38,8 +38,9 @@ class WebRenderFrames
 
     #todo: move to reposition handler
     $(sticky_holder).css 'position', 'fixed'
-    el = document.querySelector('.pane.active .item-views') || document.querySelector('.pane.active') || document.querySelector('.pane')
+    #el = document.querySelector('.pane.active .item-views') || document.querySelector('.pane.active') || document.querySelector('.pane')
 
+    el = holder
     offset = $(el).offset()
     width = $(el).width()
     height = $(el).height()
@@ -58,21 +59,29 @@ class WebRenderFrames
 
   repositionFrames: ->
     if not @objectMap or @objectMap.length == 0 then return
-    el = document.querySelector('.pane.active .item-views') || document.querySelector('.pane.active') || document.querySelector('.pane')
+    #el = document.querySelector('.pane.active .item-views') || document.querySelector('.pane.active') || document.querySelector('.pane')
 
-    offset = $(el).offset()
-    width = $(el).width()
-    height = $(el).height()
-    top = offset.top - $(window).scrollTop()
-    left = offset.left - $(window).scrollLeft()
-
-    if not el then return
     for frame in @objectMap
+      holder = el = frame.holder
       sticky_holder = frame.sticky_holder
+
+      $(holder).css 'position', 'absolute'
+
+      offset = $(holder).offset()
+      width = $(el).width()
+      height = $(el).height()
+      top = offset.top - $(window).scrollTop()
+      left = offset.left - $(window).scrollLeft()
+
       $(sticky_holder).css('top', top+'px')
       $(sticky_holder).css('left', left+'px')
       $(sticky_holder).css('width', width+'px')
       $(sticky_holder).css('height', height+'px')
+
+      if holder.is(":visible")
+        holder.goVisible()
+      else
+        holder.goInvisible()
 
   # there is only 1 remove
   removeFrame: (holder) ->
