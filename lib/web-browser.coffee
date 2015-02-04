@@ -17,8 +17,13 @@ class WebBrowser
     autoReloadCache:
       type: 'boolean'
       default: false
+    autoReopen:
+      type: 'boolean'
+      default: true
 
-  activate: ->
+  activate: (state) ->
+    @state = state
+
     atom.webBrowser = @
     @pages = []
 
@@ -89,9 +94,13 @@ class WebBrowser
       if /^https?:\/\//.test filePath
         p = new Page @, filePath
         @pages.push p
-        p # return for opener
+        setTimeout(( -> atom.webRenderFrames.repositionFrames() ), 200)
+        return p # return for opener
 
     atom.workspace.registerOpener @opener
+
+    # reopen previous pages (if reloaded)
+    setTimeout @reopen.bind @, 3000
 
   getToolbar:                -> @toolbar
   getOmniboxView:            -> @toolbar?.getOmniboxView()
@@ -106,6 +115,24 @@ class WebBrowser
     console.dir menu
     atom.menu.update()
 
+  reopen: ->
+    should_run = atom.config.get('atom-browser-webview.autoReopen')
+    if not should_run then return
+
+    if @state.urls and @state.urls.length
+      for url in @state.urls
+        try
+          @createPage url
+        catch ex
+          console.log('exception starting webpage: ')
+          console.dir(ex)
+
+  openURL: (uri, toolbar=no) ->
+    if toolbar
+      @toolbar ?= new Toolbar @
+      @toolbar.show().focus()
+    @createPage uri
+
   newTabShowUI: ->
     @toolbar ?= new Toolbar @
     @toolbar.show().focus()
@@ -117,9 +144,6 @@ class WebBrowser
 
   fixPages: ->
     if @pages.length == 0 then return
-    #if not @getActivePage()
-    #  @hideAll()
-    #  return
     atom.webRenderFrames.repositionFrames()
 
   destroyToolbar: ->
@@ -131,6 +155,8 @@ class WebBrowser
     page = new Page @, url
     atom.workspace.activePane.activateItem page
     @pages.push page
+    setImmediate(=> atom.webRenderFrames.repositionFrames())
+    return page
 
   setLocation: (url) ->
     @toolbar ?= new Toolbar @
@@ -149,8 +175,14 @@ class WebBrowser
     else
       false
 
-  # Toolbar / Omnibox / API Commands
+  serialize: ->
+    urls = []
+    if @pages.length != 0
+      for page in @pages
+        urls.push page.url
+    { urls: urls }
 
+  # Toolbar / Omnibox / API Commands
   back: ->
     webview = atom.webBrowser.getActivePage()?.getWebview()
     if not webview then return

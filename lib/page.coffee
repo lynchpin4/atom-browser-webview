@@ -84,9 +84,10 @@ class Page
   destroy: ->
     @pageView.destroy()
     tabBarView  = atom.workspaceView.find('.pane.active').find('.tab-bar').view()
-    tabView     = tabBarView.tabForItem @
-    $tabView    = $ tabView
-    $tabView.remove()
+    tabView     = tabBarView?.tabForItem? @
+    if tabView
+      $tabView    = $ tabView
+      $tabView.remove()
 
     @pageView = null
     $tabView = null
