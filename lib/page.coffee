@@ -91,3 +91,7 @@ class Page
 
     @pageView = null
     $tabView = null
+
+    # remove the URL on relaunch
+    index = atom.webBrowser.pages.indexOf @
+    atom.webBrowser.pages.splice(index, 1)

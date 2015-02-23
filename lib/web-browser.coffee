@@ -85,6 +85,7 @@ class WebBrowser
         @page.goVisible()
       else
         @hideAll()
+      @fixPages()
 
     # add the file menu 'New Tab (Browser)'
     @addFileMenuItem()
