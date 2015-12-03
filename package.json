@@ -1,5 +1,5 @@
 {
-  "name": "atom-browser-webview",
+  "name": "atom-webbrowser",
   "main": "./lib/web-browser",
   "version": "2.1.0",
   "description": "Only working web browser for Atom. Tabbed, full-featured HTML5 webviews in your IDE.",
