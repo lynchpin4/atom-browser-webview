@@ -1,7 +1,7 @@
 
 # lib/toolbar-view
 
-{$, View}  = require 'atom'
+{$, View}  = require 'atom-space-pen-views'
 OmniboxView = require './omnibox-view'
 
 module.exports =
@@ -26,8 +26,10 @@ class ToolbarView extends View
     catch ex
       console.dir ex
 
-  initialize: (browser) ->
-    atom.workspaceView.prependToTop @
+  initialize: (@browser) ->
+    if not @browser then @browser = atom.webBrowser
+    window.currentToolbarView = @
+    atom.workspace.addTopPanel { item: @, visible: true }
     @omniboxView = new OmniboxView browser
     @omniboxContainer.append @omniboxView
     @favicon = @omniboxView.favicon
@@ -39,14 +41,14 @@ class ToolbarView extends View
     @omniboxView.onFocusChg (@isFocused) =>
       if @isFocused then @navBtnsRgt.hide() else @navBtnsRgt.show()
 
-    @subscribe @, 'click', (e) ->
+    @on 'click', (e) =>
       if (classes = $(e.target).attr 'class') and
          (btnIdx  = classes.indexOf 'octicon-') > -1
         switch classes[btnIdx+8...]
-          when 'close'       then browser.destroyToolbar()
-          when 'arrow-left'  then browser.back()
-          when 'arrow-right' then browser.forward()
-          when 'sync'        then browser.refresh()
+          when 'close'       then @browser.destroyToolbar()
+          when 'arrow-left'  then @browser.back()
+          when 'arrow-right' then @browser.forward()
+          when 'sync'        then @browser.refresh()
 
   focus:   -> @omniboxView.focus()
   focused: -> @isFocused

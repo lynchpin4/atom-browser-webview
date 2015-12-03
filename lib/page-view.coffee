@@ -1,7 +1,7 @@
 
 # lib/page-view
 
-{$, View} = require 'atom'
+{$, View}  = require 'atom-space-pen-views'
 
 module.exports =
 class PageView extends View
@@ -23,8 +23,9 @@ class PageView extends View
 
     console.log 'created webview'
     window.cur_page_view_frame = @
-    @page.createTab()
-    @subscribe @webview, 'did-finish-load', =>
+    #@page.createTab()
+
+    @webview.on 'did-finish-load', =>
       url = @getUrl()
       title = @getTitle()
       @page.setTitle title
@@ -34,10 +35,9 @@ class PageView extends View
       if @browser.omnibox
         @browser.omnibox.setUrl url
 
+
   getTitle: ->
-    if not @webview or not @webview[0]
-      return ''
-    webview = @webview[0]
+    webview = @getWebview()
     if webview.getTitle
       return webview.getTitle()
 

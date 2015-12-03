@@ -1,17 +1,19 @@
 
 # lib/page
 
-{Emitter} = require 'emissary'
+{Model} = require 'theorist'
 PageView  = require './page-view'
 urlUtil   = require 'url'
-{$, View}  = require 'atom'
+{$, View}  = require 'atom-space-pen-views'
+{CompositeDisposable, Emitter} = require 'event-kit'
 
 module.exports =
-class Page
-  Emitter.includeInto @
+class Page extends Model
 
   constructor: (@browser, @url) ->
     console.log 'browser page created'
+    @emitter = new Emitter
+    @disposables = new CompositeDisposable
     atom.webBrowser.page = @
 
   setTitle: (@title) -> if @tabView then @tabView.find('.title').text(@title)
@@ -54,10 +56,14 @@ class Page
     @browser.setFaviconDomain faviconDomain
     if @pageView and @pageView.getTitle
       @setTitle @getTitle()
+      @emitter.emit 'did-change-title', @getTitle()
     # @pageView?.setLocation(@url)
 
+  onDidChangeTitle: (callback) ->
+    @emitter.on 'did-change-title', callback
+
   setFaviconDomain: (domain) ->
-    @$tabFavicon.attr src: "http://www.google.com/s2/favicons?domain=#{domain}"
+    #@$tabFavicon.attr src: "http://www.google.com/s2/favicons?domain=#{domain}"
 
   setView: (@pageView, @webView) ->
   getBrowser:   -> @browser
@@ -78,19 +84,15 @@ class Page
   reload: ->
     @pageView?.reload()
 
+  serialize: ->
+    {}
+
   detach: ->
     console.log 'detaching tab page'
 
   destroy: ->
     @pageView.destroy()
-    tabBarView  = atom.workspaceView.find('.pane.active').find('.tab-bar').view()
-    tabView     = tabBarView?.tabForItem? @
-    if tabView
-      $tabView    = $ tabView
-      $tabView.remove()
-
     @pageView = null
-    $tabView = null
 
     # remove the URL on relaunch
     index = atom.webBrowser.pages.indexOf @

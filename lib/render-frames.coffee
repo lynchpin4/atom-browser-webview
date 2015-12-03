@@ -1,7 +1,7 @@
 
 # lib/render-frames
 
-{$, View}  = require 'atom'
+{$, View}  = require 'atom-space-pen-views'
 OmniboxView = require './omnibox-view'
 _ = require 'underscore-plus'
 

@@ -3,7 +3,7 @@
 
 Toolbar = require './toolbar'
 Page    = require './page'
-{$, View}  = require 'atom'
+{$, View}  = require 'atom-space-pen-views'
 
 # render frame helper
 require './render-frames'
@@ -29,53 +29,28 @@ class WebBrowser
 
     setInterval @fixPages.bind @, 250
 
-    # toggle the webbrowser dropdown UI
-    atom.workspaceView.command "web-browser:toggle", =>
-      @toolbar ?= new Toolbar @
-      switch
-        when not @toolbar.visible()
-          @toolbar.show().focus()
-        when not @toolbar.focused()
-          @toolbar.focus()
-        else
-          @toolbar.hide()
+    atom.commands.add 'atom-workspace',
+      'web-browser:toggle': (event) ->
+        @toolbar ?= new Toolbar @
+        switch
+          when not @toolbar.visible()
+            @toolbar.show().focus()
+          when not @toolbar.focused()
+            @toolbar.focus()
+          else
+            @toolbar.hide()
 
-    atom.workspaceView.command "web-browser:newtab", =>
-      # temp: todo - user configurable homepage
-      atom.workspace.open atom.config.get('atom-browser-webview.homepage')
+    atom.commands.add 'atom-workspace',
+      'web-browser:newtab': (event) ->
+        atom.workspace.open atom.config.get('atom-browser-webview.homepage')
 
-    atom.workspaceView.command "web-browser:newtab-showui", =>
-      @newTabShowUI()
+    atom.commands.add 'atom-workspace',
+      'web-browser:newtab-showui': (event) ->
+        @newTabShowUI()
 
-    atom.workspaceView.command "web-browser:devtools", =>
-      # temp: todo - user configurable homepage
-      webview = atom.webBrowser.getActivePage()?.getWebview()
-      webview?.openDevTools()
-
-    atom.workspaceView.command "web-browser:stop-loading", =>
-      # temp: todo - user configurable homepage
-      webview = atom.webBrowser.getActivePage()?.getWebview()
-      webview?.stop()
-
-    atom.workspaceView.command "web-browser:reload", =>
-      # temp: todo - user configurable homepage
-      webview = atom.webBrowser.getActivePage()?.getWebview()
-      webview?.reload()
-
-    atom.workspaceView.command "web-browser:reload-nocache", =>
-      # temp: todo - user configurable homepage
-      webview = atom.webBrowser.getActivePage()?.getWebview()
-      webview?.reloadIgnoringCache()
-
-    atom.workspaceView.command "web-browser:go-back", =>
-      # temp: todo - user configurable homepage
-      webview = atom.webBrowser.getActivePage()?.getWebview()
-      webview?.goBack()
-
-    atom.workspaceView.command "web-browser:go-forward", =>
-      # temp: todo - user configurable homepage
-      webview = atom.webBrowser.getActivePage()?.getWebview()
-      webview?.goForward()
+    atom.commands.add 'atom-workspace',
+      'web-browser:devtools': (event) ->
+        atom.workspace.open atom.config.get('atom-browser-webview.homepage')
 
     # add a callback to simply check for which pane is active, if it is our browser tab then do the manual show/hide
     atom.workspace.onDidChangeActivePaneItem =>
@@ -98,7 +73,7 @@ class WebBrowser
         setTimeout(( -> atom.webRenderFrames.repositionFrames() ), 200)
         return p # return for opener
 
-    atom.workspace.registerOpener @opener
+    atom.workspace.addOpener @opener
 
     # reopen previous pages (if reloaded)
     setTimeout @reopen.bind @, 3000
@@ -153,11 +128,7 @@ class WebBrowser
 
   createPage: (url) ->
     @toolbar ?= new Toolbar @
-    page = new Page @, url
-    atom.workspace.activePane.activateItem page
-    @pages.push page
-    setImmediate(=> atom.webRenderFrames.repositionFrames())
-    return page
+    atom.workspace.open atom.config.get('atom-browser-webview.homepage')
 
   setLocation: (url) ->
     @toolbar ?= new Toolbar @
@@ -176,6 +147,10 @@ class WebBrowser
     else
       false
 
+  getWebView: ->
+    page = @getActivePage()
+    if page then return page.webview[0]
+
   serialize: ->
     urls = []
     if @pages.length != 0
@@ -185,16 +160,19 @@ class WebBrowser
 
   # Toolbar / Omnibox / API Commands
   back: ->
+    if not atom.webBrowser.getActivePage() then return
     webview = atom.webBrowser.getActivePage()?.getWebview()
     if not webview then return
 
     @getActivePage()?.goBack()
   forward: ->
+    if not atom.webBrowser.getActivePage() then return
     webview = atom.webBrowser.getActivePage()?.getWebview()
     if not webview then return
 
     @getActivePage()?.goForward()
   refresh: ->
+    if not atom.webBrowser.getActivePage() then return
     webview = atom.webBrowser.getActivePage()?.getWebview()
     if not webview then return
 
@@ -202,9 +180,5 @@ class WebBrowser
       webview.reloadIgnoringCache()
     else
       @getActivePage()?.reload()
-
-  # module deactivation
-  deactivate: ->
-    atom.workspace.unregisterOpener @opener
 
 module.exports = new WebBrowser
