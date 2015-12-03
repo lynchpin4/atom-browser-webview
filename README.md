@@ -8,9 +8,9 @@ This is a web browser tightly integrated into the Atom editor.  The web pages ap
 
 * Is an actual web browser, no use of iframes so every site should load as it would in Chrome or Firefox. (Some individual web features i.e. popups may not be supported) *
 
-### News (2015-11-01)
+### News (Dec. 3rd 2015)
 
-Fixed any known issues, this is no longer in testing/dev-only stage. Please report any bugs you encounter via issues section.
+Updated to work with Atom 1.0, probably once again the only working web browser.
 
 ---
 
