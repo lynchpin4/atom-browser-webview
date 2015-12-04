@@ -32,13 +32,14 @@ class WebBrowser
     atom.commands.add 'atom-workspace',
       'web-browser:toggle': (event) =>
         @toolbar ?= new Toolbar @
-        switch
-          when not @toolbar.visible()
-            @toolbar.show().focus()
-          when not @toolbar.focused()
-            @toolbar.focus()
-          else
-            @toolbar.hide()
+        if not @toolbar.visible()
+          @toolbar.show().focus()
+        else
+          @toolbar.hide()
+
+        if not @toolbar.focused()
+          @toolbar.focus()
+
 
     atom.commands.add 'atom-workspace',
       'web-browser:newtab': (event) =>
