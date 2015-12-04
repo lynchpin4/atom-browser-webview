@@ -1,7 +1,7 @@
 {
   "name": "atom-webbrowser",
   "main": "./lib/web-browser",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "The nice browser for Atom. Tabbed, full-featured HTML5 webviews in your IDE.",
   "repository": "https://github.com/gstack/atom-browser-webview",
   "license": "MIT",
