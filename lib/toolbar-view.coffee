@@ -14,8 +14,8 @@ class ToolbarView extends View
         @span outlet:'goRight', class:'octicon browser-btn octicon-arrow-right'
         @span outlet:'refresh', class:'octicon browser-btn octicon-sync'
       @div outlet:'omniboxContainer', class:'omnibox-container'
-      @div outlet: 'navBtnsRgt', class:'nav-btns right', =>
-        @span outlet:'toggleUI', class:'octicon browser-btn octicon-close'
+      #@div outlet: 'navBtnsRgt', class:'nav-btns right', =>
+      #  @span outlet:'toggleUI', class:'octicon browser-btn octicon-close'
 
   addTooltips: ->
     try
@@ -38,14 +38,11 @@ class ToolbarView extends View
 
     @setOmniText ''
 
-    @omniboxView.onFocusChg (@isFocused) =>
-      if @isFocused then @navBtnsRgt.hide() else @navBtnsRgt.show()
-
     @on 'click', (e) =>
       if (classes = $(e.target).attr 'class') and
          (btnIdx  = classes.indexOf 'octicon-') > -1
         switch classes[btnIdx+8...]
-          when 'close'       then @browser.destroyToolbar()
+          #when 'close'       then @browser.destroyToolbar()
           when 'arrow-left'  then @browser.back()
           when 'arrow-right' then @browser.forward()
           when 'sync'        then @browser.refresh()
