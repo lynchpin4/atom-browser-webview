@@ -30,7 +30,7 @@ class WebBrowser
     setInterval @fixPages.bind @, 250
 
     atom.commands.add 'atom-workspace',
-      'web-browser:toggle': (event) ->
+      'web-browser:toggle': (event) =>
         @toolbar ?= new Toolbar @
         switch
           when not @toolbar.visible()
@@ -41,16 +41,31 @@ class WebBrowser
             @toolbar.hide()
 
     atom.commands.add 'atom-workspace',
-      'web-browser:newtab': (event) ->
-        atom.workspace.open atom.config.get('atom-browser-webview.homepage')
+      'web-browser:newtab': (event) =>
+        @toolbar ?= new Toolbar @
+        if not @toolbar.visible() then @toolbar.show().focus()
+        atom.workspace.open @config.homepage.default
 
     atom.commands.add 'atom-workspace',
-      'web-browser:newtab-showui': (event) ->
+      'web-browser:newtab-showui': (event) =>
         @newTabShowUI()
 
     atom.commands.add 'atom-workspace',
-      'web-browser:devtools': (event) ->
-        atom.workspace.open atom.config.get('atom-browser-webview.homepage')
+      'web-browser:devtools': (event) =>
+        webview = atom.webBrowser.getActivePage()?.getWebview()
+        webview?.openDevTools()
+
+    atom.commands.add 'atom-workspace',
+      'web-browser:go-back': (event) =>
+        @back()
+
+    atom.commands.add 'atom-workspace',
+      'web-browser:go-forward': (event) =>
+        @forward()
+
+    atom.commands.add 'atom-workspace',
+      'web-browser:reload': (event) =>
+        @reload()
 
     # add a callback to simply check for which pane is active, if it is our browser tab then do the manual show/hide
     atom.workspace.onDidChangeActivePaneItem =>
@@ -92,7 +107,7 @@ class WebBrowser
     atom.menu.update()
 
   reopen: ->
-    should_run = atom.config.get('atom-browser-webview.autoReopen')
+    should_run = @config.autoReopen.default
     if not should_run then return
 
     if @state.urls and @state.urls.length
@@ -112,7 +127,7 @@ class WebBrowser
   newTabShowUI: ->
     @toolbar ?= new Toolbar @
     @toolbar.show().focus()
-    atom.workspace.open atom.config.get('atom-browser-webview.homepage')
+    atom.workspace.open @config.homepage.default
 
   hideAll: ->
     for page in @pages
@@ -128,7 +143,7 @@ class WebBrowser
 
   createPage: (url) ->
     @toolbar ?= new Toolbar @
-    atom.workspace.open atom.config.get('atom-browser-webview.homepage')
+    atom.workspace.open @config.homepage.default
 
   setLocation: (url) ->
     @toolbar ?= new Toolbar @
@@ -176,7 +191,7 @@ class WebBrowser
     webview = atom.webBrowser.getActivePage()?.getWebview()
     if not webview then return
 
-    if atom.config.get('atom-browser-webview.autoReloadCache')
+    if @config.autoReloadCache
       webview.reloadIgnoringCache()
     else
       @getActivePage()?.reload()
