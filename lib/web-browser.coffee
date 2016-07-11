@@ -74,6 +74,7 @@ class WebBrowser
       if p
         if @lastPage then @lastPage.goInvisible()
         @page.goVisible()
+        @toolbar.show()
       else
         @hideAll()
       @fixPages()
@@ -133,6 +134,7 @@ class WebBrowser
   hideAll: ->
     for page in @pages
       page.goInvisible()
+    try @toolbar.hide()
 
   fixPages: ->
     if @pages.length == 0 then return
