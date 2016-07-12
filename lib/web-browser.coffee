@@ -102,9 +102,9 @@ class WebBrowser
 
   # add a 'new browser tab' item to the current file menu
   addFileMenuItem: ->
-    menu = atom.menu.template[0]
+    menu = atom.menu.template[1]
     menu.submenu.splice 2, 0, { label: 'New Tab (Browser)', command: 'web-browser:newtab-showui' }
-    atom.menu.template[0] = menu
+    atom.menu.template[1] = menu
     console.dir menu
     atom.menu.update()
 
