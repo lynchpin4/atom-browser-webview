@@ -74,6 +74,7 @@ class WebBrowser
       if p
         if @lastPage then @lastPage.goInvisible()
         @page.goVisible()
+        @toolbar.show()
       else
         @hideAll()
       @fixPages()
@@ -101,9 +102,9 @@ class WebBrowser
 
   # add a 'new browser tab' item to the current file menu
   addFileMenuItem: ->
-    menu = atom.menu.template[0]
+    menu = atom.menu.template[1]
     menu.submenu.splice 2, 0, { label: 'New Tab (Browser)', command: 'web-browser:newtab-showui' }
-    atom.menu.template[0] = menu
+    atom.menu.template[1] = menu
     console.dir menu
     atom.menu.update()
 
@@ -133,6 +134,7 @@ class WebBrowser
   hideAll: ->
     for page in @pages
       page.goInvisible()
+    try @toolbar.hide()
 
   fixPages: ->
     if @pages.length == 0 then return
