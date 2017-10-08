@@ -30,7 +30,7 @@ class ToolbarView extends View
     if not @browser then @browser = atom.webBrowser
     window.currentToolbarView = @
     atom.workspace.addTopPanel { item: @, visible: true }
-    @omniboxView = new OmniboxView browser
+    @omniboxView = new OmniboxView @browser
     @omniboxContainer.append @omniboxView
     @favicon = @omniboxView.favicon
 

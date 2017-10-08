@@ -36,7 +36,7 @@ class Page extends Model
     @pageView.setLocation @url
 
   locationChanged: (@url) ->
-    @update()
+    @update
 
   # called from the page view
   createTab: ->
